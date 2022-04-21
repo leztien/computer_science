@@ -1,6 +1,9 @@
 """
 Euclidean algorithm computing the 
 Greatest Common Divisor of two integers
+
+as well as the
+Least Common Multiple
 """
 
 
@@ -12,7 +15,11 @@ def euclidean_algorithm(a, b):
     return a
 
 
-def GCD(a, b):
+def gcd(a, b):
     while b:
         a, b = b, a % b
     return a
+
+
+def lcm(a, b):
+    return abs(a * b) // gcd(a, b)
