@@ -1,0 +1,18 @@
+"""
+Euclidean algorithm computing the 
+Greatest Common Divisor of two integers
+"""
+
+
+def euclidean_algorithm(a, b):
+    while a != b:
+        if b > a:
+            a,b = b,a
+        a = a - b
+    return a
+
+
+def GCD(a, b):
+    while b:
+        a, b = b, a % b
+    return a
