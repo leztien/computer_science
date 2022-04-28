@@ -1,4 +1,3 @@
-
 """
 simple implementation of DFS/BFS
 """
@@ -10,9 +9,8 @@ def dfs_bfs(start):
     parents = dict()   # to trace the path back
     
     while frontier:
-        # DFS or BFS 
-        c = frontier.pop()                  # Stack = LIFO = DFS
-        #c = frontier[0]; del frontier[0]   # Queue = FIFO = BFS = shortest path
+        #c = frontier.pop()   # Stack = LIFO = DFS
+        c = frontier.pop(0)   # Queue = FIFO = BFS = shortest path
         
         if c is GOAL:
             path = [c,]
@@ -64,4 +62,3 @@ if __name__ == '__main__':
     
     G = nx.from_numpy_matrix(np.array(adjacency_matrix))
     nx.draw(G, with_labels=True)
-
