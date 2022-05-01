@@ -3,6 +3,13 @@
 Stellenwertsysteme - Umrechnung
 """
 
+def binary_to_decimal(n: str):
+    BASE = 2
+    result = 0
+    for i,digit in enumerate(n):
+        result = (result + int(digit)) * (BASE if i < len(n)-1 else 1)
+    return result
+
 
 def decimal_to_binary_subtraction_method(n):
     """
