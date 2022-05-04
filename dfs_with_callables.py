@@ -56,48 +56,43 @@ class Node:
 class Space:
     """non-sequential searched space for dfs/bfs"""
     def __init__(self, *args, **kwargs):
-        self._adjacency_matrix = args[0]  # represents a graph
-        self.start_node = self.start = NotImplemented
-        self._goal_state = args[1] if len(args) > 1 else (kwargs.get("goal") or len(self._adjacency_matrix)-1)
+        self.adjacency_matrix = args[0]  # represents a graph
+        self.start_state = 0
+        self.goal_state = len(self.adjacency_matrix) - 1
         
-    def is_goal(self, node):
-        return node.state == self._goal_state
+    def is_goal(self, state):
+        return state == self.goal_state
     
-    def get_neighbors(self, node):
-        return [Node(i) for i,v in enumerate(self._adjacency_matrix[node.state]) if v]
+    def get_neighbors(self, state):
+        return [i for i,v in enumerate(self.adjacency_matrix[state]) if v]
 
 
-def dfs(start_node, is_goal, get_neighbors):
-    frontier = [start_node,]
-    explored = set()
+def dfs(start_state, is_goal, get_neighbors):
+    frontier = [Node(start_state)]
+    visited = {start_state}
     
     while frontier:
-        c = frontier.pop()   # Stack functionality
+        node = frontier.pop()   # Stack functionality
         
-        if is_goal(c):
-            path = [c,]
-            while c != start_node:
-                c = c.parent
-                path.append(c)
+        if is_goal(node.state):
+            path = [node.state,]
+            while node.state != start_state:
+                node = node.parent
+                path.append(node.state)
             return path[::-1]
         
-        explored.add(c)
         
-        neighbors = get_neighbors(c)
-        successors = [n for n in neighbors
-                      if n not in frontier and n not in explored]
-        
-        for n in successors:
-            n.parent = c
-        
-        frontier.extend(successors)
-    
+        for neighbor in get_neighbors(node.state):
+            if neighbor in visited:
+                continue
+            visited.add(neighbor)
+            frontier.append( Node(neighbor, parent=node) )
+
 
 
 if __name__ == '__main__':
     # DEMO
     space = Space(adjacency_matrix)
-    start = space.start_node  # ?
-    start = Node(0)
+    start = space.start_state
     path = dfs(start, space.is_goal, space.get_neighbors)
     print("path =", path)
