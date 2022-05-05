@@ -24,19 +24,20 @@ class CSP:
         # Select next variable (e.g. with a heuristic)
         variable = unassigned[0]
         
-        # loop
+        # Loop ove each value of the current variable
         for value in self.domains[variable]:
-            test_assignment = assignment.copy()
-            test_assignment[variable] = value
+            d = assignment.copy()  # d = current assignment
+            d[variable] = value
             
             # check constraints
-            if self.constraints(test_assignment):
-                result = self.solve(test_assignment)  # result = None or {full assignment}
+            if self.constraints(d):
+                result = self.solve(d)  # result = None or {full assignment}
                 if result is not None:
                     return result  # result = full assignment
         
         # None of the values is OK - backtrack
-        return None
+        else:
+            return None
 
 #########################################################################
 
