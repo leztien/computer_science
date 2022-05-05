@@ -1,4 +1,3 @@
-
 """
 Stellenwertsysteme - Umrechnung
 """
@@ -7,8 +6,8 @@ def binary_to_decimal(n: str):
     BASE = 2
     result = 0
     for i,digit in enumerate(n):
-        result = (result + int(digit)) * (BASE if i < len(n)-1 else 1)
-    return result
+        result = (result + int(digit)) * BASE
+    return result // 2
 
 
 def decimal_to_binary_subtraction_method(n):
@@ -58,4 +57,3 @@ def decimal_to_hexadecimal(n):
         n,r = divmod(n, 16)
         bits.append(d[r])
     return ''.join(bits[::-1]) or '0'
-
