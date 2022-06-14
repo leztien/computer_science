@@ -11,20 +11,20 @@ def make_seq(n, max_value=None):
 
 
 
-def bubble_sort(seq):
+def bubblesort(s: list):
     while True:
-        is_sorted = True
-        for ix in range(0, len(seq)-1):
-            if seq[ix] > seq[ix+1]:
-                seq[ix], seq[ix+1] = seq[ix+1], seq[ix]
-                is_sorted = False
-        if is_sorted:
-            return  # sorts a list in-place
+        flag = True  # True = the list is sorted
+        for i in range(0, len(s)-1):  # the last index not inclusive
+            if s[i] > s[i+1]:
+                s[i], s[i+1] = s[i+1], s[i]
+                flag = False  # i.e. not sorted
+        if flag == True:
+            return  # this algorithm sorts a list in-place
 
 
 if __name__ == '__main__':
     seq = make_seq(10)
     print("BEFORE:", seq)
     
-    bubble_sort(seq)
+    bubblesort(seq)
     print("AFTER: ", seq, seq == sorted(seq))
