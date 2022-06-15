@@ -34,6 +34,24 @@ def quick_sort(seq):
     
 
 
+# terse version
+from operator import eq, gt, lt
+
+def quicksort(s):
+    # Base Case
+    if len(s) <= 1: return s
+    
+    # Recursive Case
+    p = s[0]
+    d = {lt: [], eq: [], gt: []}
+
+    for e in s:
+        for f, l in d.items():
+            [l.append(e) if f(e, p) else None]
+    
+    return quicksort(d[lt]) + d[eq] + quicksort(d[gt])
+
+
 
 if __name__ == '__main__':
     seq = make_seq(10)
