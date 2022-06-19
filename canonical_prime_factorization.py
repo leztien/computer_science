@@ -1,6 +1,7 @@
 
 """
 Kanonische Primfaktorenzerlegung (canonical prime factorization)
+(the tree method from the book by Weitz)
 """
 
 
