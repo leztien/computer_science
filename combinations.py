@@ -1,12 +1,14 @@
 
 """
-my function that return combinations
-same functionality as itertools.combinations
+My function that return combinations.
+Same functionality as itertools.combinations
 (maybe a more elegant implementation is possible)
 """
 
 
 def get_combinations(seq, r):
+    """same functionality as itertools.combinations, 
+    however probably a more elegant implementation is possible"""
     
     combinations = []
     
@@ -32,7 +34,7 @@ def get_combinations(seq, r):
 if __name__ == "__main__":
     from itertools import combinations
     from random import randint
-    from string import ascii_uppercase as abc
+    from string import ascii_uppercase
     
     
     for test in range(20):
@@ -41,10 +43,15 @@ if __name__ == "__main__":
         n = randint(2, mx)
         r = randint(2, n)
         
+        
         if randint(0,1):
-            seq = abc[:n]
+            seq = ascii_uppercase[:n]
         else:
-            seq = list(range(n))
+            if randint(0,1):
+                seq = list(range(n))
+            else:
+                seq = [randint(1, n) for _ in range(n)]
+                
         
         print(f"test {test+1}, n = {n}, r = {r}")
         print("seq =", seq)
@@ -56,6 +63,3 @@ if __name__ == "__main__":
         print(passed)
         if not passed:
             raise Exception("failed")
-
-
-
