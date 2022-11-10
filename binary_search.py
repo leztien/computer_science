@@ -15,13 +15,13 @@ def binarysearch(seq, item):
     while not (lo > hi):
         ix = (lo+hi) // 2
         if seq[ix] == item:
-            return True
+            return ix
         
         if item < seq[ix]:
             hi = ix - 1
         elif item > seq[ix]:
             lo = ix + 1
-    return False
+    return -1
 
 
 def iterative_binary_search(seq, item):
