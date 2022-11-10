@@ -22,6 +22,17 @@ def bubblesort(s: list):
             return  # this algorithm sorts a list in-place
 
 
+# alternative:
+def bubblesort(l):
+    sorted = False
+    while not sorted:
+        sorted = True  # assume l is sorted
+        for i in range(len(l)-1):
+            if l[i] > l[i+1]:
+                l[i], l[i+1] = l[i+1], l[i]
+                sorted = False
+                
+                
 if __name__ == '__main__':
     seq = make_seq(10)
     print("BEFORE:", seq)
