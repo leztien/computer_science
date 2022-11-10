@@ -4,10 +4,24 @@ binary search
 
 from random import randint
 
+
 def make_search_space(n, max_value=None):
     max_value = int(max_value or n*2)
     return tuple(sorted(randint(0, max_value) for _ in range(n)))
     
+  
+def binarysearch(seq, item):
+    lo, hi = 0, len(seq) - 1
+    while not (lo > hi):
+        ix = (lo+hi) // 2
+        if seq[ix] == item:
+            return True
+        
+        if item < seq[ix]:
+            hi = ix - 1
+        elif item > seq[ix]:
+            lo = ix + 1
+    return False
 
 
 def iterative_binary_search(seq, item):
