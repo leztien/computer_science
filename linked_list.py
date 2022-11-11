@@ -1,80 +1,115 @@
+
 """
-quick and dirty implementation of Linked List
+Linked List
 """
 
+
 class Node:
+    __slots__ = ('value', 'next')
     def __init__(self):
         self.value = None
         self.next = None
-
-        
-        
+    
+    
 class LinkedList:
-    def __init__(self, values):
-        self.first = node = Node()
+    def __init__(self, *values):
+        self.head = node = Node()
         for value in values:
             node.value = value
             next = Node()
             node.next = next
             node = next
             
-            
     def __iter__(self):
-        next = self.first
-        while next.value:
-            yield next.value
-            next = next.next
-    
-    def __str__(self):
-        t = tuple(self)
-        return "<{}>".format(str(t)[1:-1])
-    def __repr__(self):
-        return self.__str__()
-    
-    def _get_node(self, ix):
-        next = self.first
-        for i in range(ix):
-            try: next = next.next
-            except AttributeError:
-                raise IndexError("index out of range")
-        if next is None or next.value is None:
-            raise IndexError("index out of range")
-        return next
-    
-    def __getitem__(self, ix):
-        node = self._get_node(ix)
-        return node.value
-
-
-    def __setitem__(self, ix, value):
-        node = self._get_node(ix)
-        node.value = value
+        node = self.head
+        while node.next:
+            yield node.value
+            node = node.next
         
+    def __repr__(self):
+        return self.__class__.__name__ + str(tuple(self))
+
+    def __len__(self):
+        return sum(1 for e in self)
     
-    def delete(self, ix):
-        if ix==0:
-            self.first = self.first.next
-        else:
-            node = self.first
-            for i in range(ix-1):
-                node = node.next
-            node.next = node.next.next
+    # Access  O(n)
+    def __getitem__(self, index):
+        if not type(index) is int or index < 0:
+            raise IndexError("bad index")
+        
+        node = self.head
+        for i in range(index):
+            node = node.next
+            if node.next is None:
+                raise IndexError("index out of range")
+        return node.value
     
-    def insert(self, ix, value):
+    # Search  O(n)
+    def __contains__(self, value):
+        node = self.head
+        while node is not None:
+            if node.value == value:
+                return True
+            node = node.next
+        return False
+    
+    # Search and return index
+    def index(self, value):
+        for i,v in enumerate(self):
+            if v == value:
+                return i
+        return -1
+    
+    # Insertion  O(1)   insert at the head
+    def push(self, value):
+        node, self.head = self.head, Node()
+        self.head.next, self.head.value = node, value
+
+    # deletion O(1)    pop at the head
+    def pop(self):
+        self.head = self.head.next
+    
+    def insert(self, index, value):
+        if index == 0:
+            self.push(value)
+            return
+        node = self.head
+        for _ in range(index-1):
+            node = node.next
+            if node.next.next is None:
+                raise IndexError("bad index")
         new = Node()
         new.value = value
-        if ix==0:
-            new.next = self.first
-            self.first = new
-        else:
-            node = self._get_node(ix-1)
-            new.next = node.next
-            node.next = new
-            
+        new.next, node.next = node.next, new
+        
+    def delete(self, index):
+        if index == 0:
+            self.head = self.head.next
+            return
+        node = self.head
+        for _ in range(index-1):
+            node = node.next  # BUG
+            if node.next.next is None:
+                raise IndexError("bad index")
+        node.next = node.next.next
+        
     
 
-l = LinkedList([10,20,30,"A","B","C", "xyz"])
-for e in l:
-    print(e)
+class DoublyLinkedList:
+    ...
+    # make an Abstract ?
 
-print(l)
+
+
+
+
+
+
+
+
+if __name__ == '__main__':
+    l = LinkedList(10, 0, 3, -7, 42)
+    print(l)
+
+
+
