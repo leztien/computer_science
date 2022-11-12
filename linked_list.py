@@ -1,28 +1,29 @@
 
+
 """
 Linked List
 """
 
 
 class Node:
-    __slots__ = ('value', 'next')
+    __slots__ = ('value', 'next', 'prev')
     def __init__(self):
         self.value = None
         self.next = None
+        self.prev = None  # only for doubly linked list
     
     
 class LinkedList:
     def __init__(self, *values):
         self.head = node = Node()
-        for value in values:
-            node.value = value
-            next = Node()
-            node.next = next
-            node = next
+        for i,v in enumerate(values):
+            node.value = v
+            node.next = Node() if i < (len(values) - 1) else None
+            node = node.next
             
     def __iter__(self):
         node = self.head
-        while node.next:
+        while node:
             yield node.value
             node = node.next
         
@@ -34,13 +35,13 @@ class LinkedList:
     
     # Access  O(n)
     def __getitem__(self, index):
-        if not type(index) is int or index < 0:
+        if not(type(index) is int) or index < 0:
             raise IndexError("bad index")
         
         node = self.head
         for i in range(index):
             node = node.next
-            if node.next is None:
+            if node is None:
                 raise IndexError("index out of range")
         return node.value
     
@@ -86,18 +87,22 @@ class LinkedList:
         if index == 0:
             self.head = self.head.next
             return
-        node = self.head
-        for _ in range(index-1):
-            node = node.next  # BUG
-            if node.next.next is None:
-                raise IndexError("bad index")
-        node.next = node.next.next
+        ...  #TODO
+        
+    def reverse(self):
+        prev = None
+        curr = self.head
+        while curr:
+            next = curr.next
+            curr.next = prev
+            prev, curr = curr, next
+        self.head = prev
         
     
 
 class DoublyLinkedList:
-    ...
-    # make an Abstract ?
+    ...  #TODO
+        
 
 
 
@@ -105,11 +110,10 @@ class DoublyLinkedList:
 
 
 
+##############################################
 
-
-if __name__ == '__main__':
-    l = LinkedList(10, 0, 3, -7, 42)
-    print(l)
+l = LinkedList(10, 20, 30, 40, 50)
+print(l)
 
 
 
