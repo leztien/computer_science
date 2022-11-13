@@ -13,15 +13,16 @@ def make_search_space(n, max_value=None):
 def binarysearch(seq, item):
     lo, hi = 0, len(seq) - 1
     while not (lo > hi):
-        ix = (lo+hi) // 2
-        if seq[ix] == item:
-            return ix
+        ix = (lo + hi) // 2
+        curr = seq[ix]
         
-        if item < seq[ix]:
+        if item < curr:
             hi = ix - 1
-        elif item > seq[ix]:
+        elif item > curr:
             lo = ix + 1
-    return -1
+        else: # item == curr
+            return ix
+    return 'not found'
 
 
 def iterative_binary_search(seq, item):
