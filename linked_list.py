@@ -13,7 +13,7 @@ class Node:
     
 class LinkedList:
     def __init__(self, *items):
-        self.head = node = Node()
+        self.head = node = Node() if items else None
         for i,v in enumerate(items):
             node.item = v
             node.next = Node() if i < (len(items) - 1) else None
@@ -51,6 +51,9 @@ class LinkedList:
                 return True
             node = node.next
         return False
+    
+    def __bool__(self):
+        return self.head is not None
     
     # Search and return index
     def index(self, item):
@@ -128,5 +131,4 @@ class Stack(LinkedList):
 if __name__ == '__main__':
     l = LinkedList(10, 20, 30, 40, 50)
     s = Stack(*l)
-
-
+    print(l, s)
