@@ -125,13 +125,8 @@ class Stack(LinkedList):
 
 
 
-
-
-
-##############################################
-
-l = LinkedList(10, 20, 30, 40, 50)
-
-s = Stack(*l)
+if __name__ == '__main__':
+    l = LinkedList(10, 20, 30, 40, 50)
+    s = Stack(*l)
 
 
