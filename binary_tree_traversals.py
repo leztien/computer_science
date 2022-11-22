@@ -102,6 +102,34 @@ def levelorder(root, depth=0, d=dict()):
         return sum([d[k] for k in sorted(d.keys())], [])
 
 
+def count_levels(root, depth=0):
+    """get the depth of the tree"""
+    node = root
+    
+    if node is None:
+        return depth
+    
+    return max(
+        count_levels(node.left, depth=depth+1), 
+        count_levels(node.right, depth=depth+1))
+    
+
+def count_nodes(root):
+    """get the number of nodes (off by one = bug)"""
+    node = root
+    
+    if node is None:
+        return 1
+    
+    return sum([count_nodes(node.left), count_nodes(node.right)])
+    
+
+def count_leaves(root):
+    """get the number of leaves"""
+    #???
+
+
+
 #########################################################
 ## make a random binary tree ##
 
@@ -123,3 +151,9 @@ print("\npost-order: ", l)
 
 l = levelorder(root)
 print("\nlevel-order: ", l)
+
+d = count_levels(root)
+print("\ntree depth =", d)
+
+n = count_nodes(root)
+print("\nnumber of nodes =", n-1)   # off-by-one bug
