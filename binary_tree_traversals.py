@@ -1,5 +1,4 @@
 
-
 """Binary Tree Traversals"""
 
 
@@ -85,11 +84,14 @@ def postorder(root):
     return postorder(node.left) + postorder(node.right) + [node.value]
 
 
-def levelorder(root, depth=0, d=dict()):
+def levelorder(root, depth=0, d=None):
     """level-order traversal of a binary tree"""
     node = root
     if node is None:
         return
+    
+    if depth == 0:
+        d = dict()
     
     if depth not in d:
         d[depth] = []
