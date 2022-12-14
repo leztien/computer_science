@@ -118,27 +118,24 @@ def matmul(A, B):
 
 
 ##############################################################
-
-
-
-n = random.randint(2,10)
-A = make_matrix(n)
-
-print(*A, sep='\n')
-
-d = det(A)
-print("Determinant =", d, "\n")
-
-
-import numpy as np
-A_1 = inverse(A)
-print("inverse:\n", np.array(A_1).round(2))
-
-I = matmul(A, A_1)
-
-
-nd = np.array(I)
-print("\n\n", nd.round(5))
-print("\ntest passed:", (np.eye(len(A)) == nd.round(5)).all())
-
-
+## DEMO ##
+if __name__ == '__main__':
+    n = random.randint(2,10)
+    A = make_matrix(n)
+    
+    print(*A, sep='\n')
+    
+    d = det(A)
+    print("Determinant =", d, "\n")
+    
+    
+    import numpy as np
+    A_1 = inverse(A)
+    print("inverse:\n", np.array(A_1).round(2))
+    
+    I = matmul(A, A_1)
+    
+    
+    nd = np.array(I)
+    print("\n\n", nd.round(5))
+    print("\ntest passed:", (np.eye(len(A)) == nd.round(5)).all())
