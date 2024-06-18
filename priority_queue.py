@@ -7,11 +7,17 @@ https://www.youtube.com/watch?v=eVq8CmoC1x8&t=68s
 
 
 class Heap:
+    """
+    Binary heap (no frills)
+    """
     def __init__(self):
         self._nodes = []
     
     def __len__(self):
         return len(self._nodes)
+    
+    def is_empty(self):
+        return len(self._nodes) == 0
 
     def add(self, item):
         # alias for convenience
@@ -29,6 +35,10 @@ class Heap:
                 c = p
             else:
                 break
+    
+    def top(self):
+        """returns the top element but does not remove it, unlike pop()"""
+        return self._nodes[0]
     
     def pop(self):
         # alias for convenience
