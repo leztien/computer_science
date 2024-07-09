@@ -1,5 +1,7 @@
 
-"""Binary Tree Traversals"""
+"""
+Binary Tree Traversals
+"""
 
 
 from random import randint
@@ -8,8 +10,11 @@ from itertools import count
 import matplotlib.pyplot as plt
 import networkx as nx
 import pydot
-from networkx.drawing.nx_pydot import graphviz_layout
 
+try:
+    from networkx.drawing.nx_agraph import graphviz_layout  # new
+except ImportError:
+    from networkx.drawing.nx_pydot import graphviz_layout   # old
 
 
 
@@ -128,34 +133,35 @@ def count_nodes(root):
 
 def count_leaves(root):
     """get the number of leaves"""
-    #???
+    ...
 
 
 
-#########################################################
-## make a random binary tree ##
-
-root, edges = make_tree(depth=4, full=False)
-T = draw_graph_from_edge_list(edges)
-
-
-##################################################
-## TRAVERSALS ##
-
-l = preorder(root)
-print("\npre-order:", l)
-
-l = inorder(root)
-print("\nin-order: ", l)
-
-l = postorder(root)
-print("\npost-order: ", l)
-
-l = levelorder(root)
-print("\nlevel-order: ", l)
-
-d = count_levels(root)
-print("\ntree depth =", d)
-
-n = count_nodes(root)
-print("\nnumber of nodes =", n-1)   # off-by-one bug
+# Demo
+if __name__ == '__main__':
+    
+    # Make a random binary tree
+    
+    root, edges = make_tree(depth=4, full=False)
+    draw_graph_from_edge_list(edges)
+    
+    
+    # Traversals
+    
+    l = preorder(root)
+    print("\npre-order:", l)
+    
+    l = inorder(root)
+    print("\nin-order: ", l)
+    
+    l = postorder(root)
+    print("\npost-order: ", l)
+    
+    l = levelorder(root)
+    print("\nlevel-order: ", l)
+    
+    d = count_levels(root)
+    print("\ntree depth =", d)
+    
+    n = count_nodes(root)
+    print("\nnumber of nodes =", n-1)   # off-by-one bug
